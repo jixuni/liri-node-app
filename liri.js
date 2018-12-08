@@ -1,8 +1,11 @@
 require("dotenv").config();
 
-//var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 var axios = require("axios");
+var moment = require("moment");
+var Spotify = require("node-spotify-api")
+
 
 var searchType = process.argv[2];
 var searchInput = process.argv[3];
@@ -30,10 +33,11 @@ function bandData(artist) {
     axios.get(queryUrl)
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
+                var concertDate = moment(response.data[i].datetime).format('MM DD YYYY');
                 console.log(
                     "Venue Name: " + response.data[i].venue.name + '\n',
                     "Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country + '\n',
-                    "Venue Date" + response.data[i].datetime);
+                    "Venue Date: " + concertDate);
             }
 
         })
@@ -41,4 +45,19 @@ function bandData(artist) {
 
 if (searchType === "concert-this") {
     bandData(searchInput);
+} 
+
+
+function songData(song){
+    spotify.search({ type: 'track', query: song }, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+       
+      console.log(data); 
+      });
+}
+
+if (searchType === "spotify-this"){
+    songData(searchInput);
 }
