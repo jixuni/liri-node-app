@@ -32,6 +32,9 @@ function movieData(query) {
             ]
             console.log(movieInfo);
         })
+        .catch(function (error) {
+            console.log(error);
+        })
 }
 
 
@@ -52,6 +55,7 @@ function bandData(artist) {
                     "Venue Name: " + response.data[i].venue.name + '\n',
                     "Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country + '\n',
                     "Venue Date: " + concertDate);
+
             }
 
         })
@@ -80,13 +84,13 @@ function songData(song) {
             ]
 
             console.log(artistData);
-            console.log(data);
+
         }
 
     );
 }
 
-// if (searchType === "spotify-this") {
+// if (searchType === "spotify-this-song") {
 //     songData(searchInput);
 // }
 
@@ -97,20 +101,26 @@ function file() {
             return console.log(error)
         }
 
-
-
-        console.log(data);
         var dataArr = data.split(",")
+
         for (var i = 0; i < dataArr.length; i++) {
 
+            if (dataArr[i] === "movie-this") {
+                movieData(dataArr[i + 1]);
+            }
+            if (dataArr[i] === "spotify-this-song") {
+                songData(dataArr[i + 1]);
+            }
+            if (dataArr[i] === "concert-this") {
+                bandData(dataArr[i + 1]);
+            }
         }
-        console.log(dataArr);
     })
 }
 
-if (searchType === "do-what-it-says") {
-    file();
-}
+// if (searchType === "do-what-it-says") {
+//     file();
+// }
 
 
 
@@ -121,12 +131,14 @@ switch (true) {
     case searchType === "movie-this":
         movieData(searchInput);
         break;
-    case searchType === "spotify-this":
+    case searchType === "spotify-this-song":
         songData(searchInput);
         break;
     case searchType === "concert-this":
         bandData(searchInput);
         break;
+    case searchType === "do-what-it-says":
+        file();
 
     default:
         console.log("NO input");
