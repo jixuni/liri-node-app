@@ -38,11 +38,7 @@ function movieData(query) {
 }
 
 
-// if (searchType === "movie-this" && searchInput === undefined) {
-//     movieData('Mr.Nobody');
-// } else if (searchType === "movie-this") {
-//     movieData(searchInput);
-// }
+
 
 function bandData(artist) {
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
@@ -61,9 +57,7 @@ function bandData(artist) {
         })
 }
 
-// if (searchType === "concert-this") {
-//     bandData(searchInput);
-// }
+
 
 
 function songData(song) {
@@ -90,9 +84,7 @@ function songData(song) {
     );
 }
 
-// if (searchType === "spotify-this-song") {
-//     songData(searchInput);
-// }
+
 
 function file() {
 
@@ -112,16 +104,12 @@ function file() {
                 songData(dataArr[i + 1]);
             }
             if (dataArr[i] === "concert-this") {
-                bandData(dataArr[i + 1]);
+                temp = dataArr[i + 1].replace(/["']/g, "");
+                bandData(temp);
             }
         }
     })
 }
-
-// if (searchType === "do-what-it-says") {
-//     file();
-// }
-
 
 
 switch (true) {
@@ -139,7 +127,7 @@ switch (true) {
         break;
     case searchType === "do-what-it-says":
         file();
-
+        break;
     default:
         console.log("NO input");
         break;
