@@ -41,7 +41,7 @@ fixed the bug below, it has to do with concert api call. The api will not take s
 
 ```
 
-<img width="882" alt="screen shot 2018-12-09 at 2 59 51 pm" src="https://user-images.githubusercontent.com/40869621/49702284-95315480-fbc4-11e8-855a-f240082822e9.png">
+
 
 
 
